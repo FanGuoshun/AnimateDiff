@@ -359,7 +359,7 @@ def ui():
 
             generate_button.click(fn=controller.animate, inputs=inputs, outputs=outputs)
 
-        gr.Examples(fn=controller.animate, examples=examples, inputs=inputs, outputs=outputs, cache_examples=True)
+        gr.Examples(fn=controller.animate, examples=examples, inputs=inputs, outputs=outputs, cache_examples=False)
         lang_btn.click(change_language, inputs=[lang_btn, quick_start_controller, base_model_dropdown, motion_module_dropdown,
                     prompt_textbox, negative_prompt_textbox, width_slider, height_slider,
                     seed_textbox, generate_button, result_video, json_config], outputs=[lang_btn, quick_start_controller, base_model_dropdown, motion_module_dropdown,
