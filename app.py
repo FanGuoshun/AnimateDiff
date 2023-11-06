@@ -357,7 +357,7 @@ def ui():
                       width_slider, height_slider, seed_textbox]
             outputs = [result_video, json_config]
 
-            generate_button.click(fn=controller.animate, inputs=inputs, outputs=outputs, concurrency_limit=16)
+            generate_button.click(fn=controller.animate, inputs=inputs, outputs=outputs)
 
         gr.Examples(fn=controller.animate, examples=examples, inputs=inputs, outputs=outputs, cache_examples=True)
         lang_btn.click(change_language, inputs=[lang_btn, quick_start_controller, base_model_dropdown, motion_module_dropdown,
