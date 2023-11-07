@@ -268,9 +268,7 @@ quick_start_cn = """
             """
 
 
-def change_language(lang, quick_start_controller, base_model_dropdown, motion_module_dropdown,
-                    prompt_textbox, negative_prompt_textbox, width_slider, height_slider,
-                    seed_textbox, generate_button, result_video, json_config):
+def change_language(lang):
     if lang == '中文':
         lang = gr.update(value='English')
         quick_start_controller = gr.Markdown(value=quick_start_cn)
@@ -284,6 +282,7 @@ def change_language(lang, quick_start_controller, base_model_dropdown, motion_mo
         generate_button = gr.Button(value="生成")
         result_video = gr.Video(label="已生成的动画")
         json_config = gr.JSON(label="配置")
+        advance_settings = gr.Accordion(label="高级设置")
     elif lang == 'English':
         lang = gr.update(value='中文')
         quick_start_controller = gr.Markdown(value=quick_start_en)
@@ -297,10 +296,11 @@ def change_language(lang, quick_start_controller, base_model_dropdown, motion_mo
         generate_button = gr.Button(value="Generate")
         result_video = gr.Video(label="Generated Animation")
         json_config = gr.JSON(label="Config")
+        advance_settings = gr.Accordion(label="Advance")
 
     return [lang, quick_start_controller, base_model_dropdown,
             motion_module_dropdown, prompt_textbox, negative_prompt_textbox, width_slider, height_slider,
-            seed_textbox, generate_button, result_video, json_config]
+            seed_textbox, generate_button, result_video, json_config, advance_settings]
 
 
 def ui():
@@ -337,7 +337,7 @@ def ui():
                 negative_prompt_textbox = gr.Textbox(label="Negative Prompt", lines=3,
                                                      value="worst quality, low quality, nsfw, logo")
 
-                with gr.Accordion("Advance", open=False):
+                with gr.Accordion("Advance", open=False) as advance_settings:
                     with gr.Row():
                         width_slider = gr.Slider(label="Width", value=512, minimum=256, maximum=1024, step=64)
                         height_slider = gr.Slider(label="Height", value=512, minimum=256, maximum=1024, step=64)
@@ -360,11 +360,9 @@ def ui():
             generate_button.click(fn=controller.animate, inputs=inputs, outputs=outputs)
 
         gr.Examples(fn=controller.animate, examples=examples, inputs=inputs, outputs=outputs, cache_examples=False)
-        lang_btn.click(change_language, inputs=[lang_btn, quick_start_controller, base_model_dropdown, motion_module_dropdown,
+        lang_btn.click(change_language, inputs=lang_btn, outputs=[lang_btn, quick_start_controller, base_model_dropdown, motion_module_dropdown,
                     prompt_textbox, negative_prompt_textbox, width_slider, height_slider,
-                    seed_textbox, generate_button, result_video, json_config], outputs=[lang_btn, quick_start_controller, base_model_dropdown, motion_module_dropdown,
-                    prompt_textbox, negative_prompt_textbox, width_slider, height_slider,
-                    seed_textbox, generate_button, result_video, json_config])
+                    seed_textbox, generate_button, result_video, json_config, advance_settings])
 
     return demo
 
