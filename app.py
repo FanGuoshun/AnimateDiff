@@ -257,7 +257,7 @@ quick_start_en = """
 quick_start_cn = """
             ### 快速开始
             1. 选择所需的`基础DreamBooth模型`。
-            2. 从mm_sd_v14.ckpt和mm_sd_v15.ckpt中选择Motion模型。我们建议尝试两者取得最佳效果。
+            2. 从mm_sd_v14.ckpt和mm_sd_v15.ckpt中选择Motion模块。我们建议尝试两者取得最佳效果。
             3. 为每个模型提供`提示`和`负提示`。鼓励您参考CivitAI上的每个模型的网页，以了解如何为它们编写提示。以下是此演示中的DreamBooth模型，点击访问他们的主页：
                 - [`toonyou_beta3.safetensors`](https://civitai.com/models/30240?modelVersionId=78775)
                 - [`lyriel_v16.safetensors`](https://civitai.com/models/22922/lyriel)
@@ -273,30 +273,30 @@ def change_language(lang, quick_start_controller, base_model_dropdown, motion_mo
                     seed_textbox, generate_button, result_video, json_config):
     if lang == '中文':
         lang = gr.update(value='English')
-        quick_start_controller = gr.update(value=quick_start_cn)
-        base_model_dropdown = gr.update(label="基础DreamBooth模型")
-        motion_module_dropdown = gr.update(label="Motion模型")
-        prompt_textbox = gr.update(label="提示")
-        negative_prompt_textbox = gr.update(label="负提示")
-        width_slider = gr.update(label="宽度")
-        height_slider = gr.update(label="高度")
-        seed_textbox = gr.update(label="种子")
-        generate_button = gr.update(value="生成")
-        result_video = gr.update(label="已生成的动画")
-        json_config = gr.update(label="配置")
+        quick_start_controller = gr.Markdown(value=quick_start_cn)
+        base_model_dropdown = gr.Dropdown(label="基础DreamBooth模型")
+        motion_module_dropdown = gr.Dropdown(label="Motion模块")
+        prompt_textbox = gr.Textbox(label="提示")
+        negative_prompt_textbox = gr.Textbox(label="负提示")
+        width_slider = gr.Slider(label="宽度")
+        height_slider = gr.Slider(label="高度")
+        seed_textbox = gr.Textbox(label="种子")
+        generate_button = gr.Button(value="生成")
+        result_video = gr.Video(label="已生成的动画")
+        json_config = gr.JSON(label="配置")
     elif lang == 'English':
         lang = gr.update(value='中文')
-        quick_start_controller = gr.update(value=quick_start_en)
-        base_model_dropdown = gr.update(label="Base DreamBooth Model")
-        motion_module_dropdown = gr.update(label="Motion Module")
-        prompt_textbox = gr.update(label="Prompt")
-        negative_prompt_textbox = gr.update(label="Negative Prompt")
-        width_slider = gr.update(label="Width")
-        height_slider = gr.update(label="Height")
-        seed_textbox = gr.update(label="Seed")
-        generate_button = gr.update(value="Generate")
-        result_video = gr.update(label="Generated Animation")
-        json_config = gr.update(label="Config")
+        quick_start_controller = gr.Markdown(value=quick_start_en)
+        base_model_dropdown = gr.Dropdown(label="Base DreamBooth Model")
+        motion_module_dropdown = gr.Dropdown(label="Motion Module")
+        prompt_textbox = gr.Textbox(label="Prompt")
+        negative_prompt_textbox = gr.Textbox(label="Negative Prompt")
+        width_slider = gr.Slider(label="Width")
+        height_slider = gr.Slider(label="Height")
+        seed_textbox = gr.Textbox(label="Seed")
+        generate_button = gr.Button(value="Generate")
+        result_video = gr.Video(label="Generated Animation")
+        json_config = gr.JSON(label="Config")
 
     return [lang, quick_start_controller, base_model_dropdown,
             motion_module_dropdown, prompt_textbox, negative_prompt_textbox, width_slider, height_slider,
